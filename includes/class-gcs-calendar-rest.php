@@ -1,10 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-if (!current_user_can('edit_calendar_events')) {
-    return new WP_REST_Response(['error' => 'Not authorized'], 403);
-}
-
 
 class GCS_Calendar_REST {
 
@@ -125,7 +121,24 @@ class GCS_Calendar_REST {
             ]
         ];
 
-        $res = $client->create_event($event, $user);
+       	// Anonymous users → send invite only
+		if (!is_user_logged_in()) {
+			return $this->graph_client->send_meeting_invite(
+				$email, $subject, $body, $start, $end
+			);
+		}
+
+		// Admins → full event creation
+		if (current_user_can('manage_options')) {
+			return $this->graph_client->create_event($data);
+		}
+
+		// Logged-in non-admins → invite only
+		return $this->graph_client->send_meeting_invite(
+			$email, $subject, $body, $start, $end
+		);
+		
+		
         if (is_wp_error($res)) return $res;
 
         // Send confirmation email via Graph (option C)

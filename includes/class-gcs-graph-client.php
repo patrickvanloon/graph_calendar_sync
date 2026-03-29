@@ -128,4 +128,43 @@ class GCS_Graph_Client {
         }
         return $arr;
     }
+	
+	public function send_meeting_invite($toEmail, $subject, $body, $start, $end) {
+
+		require_once plugin_dir_path(__FILE__) . 'class-gcs-ics-generator.php';
+
+		$ics = GCS_ICS_Generator::generate($subject, $body, $start, $end);
+
+		$message = [
+			"message" => [
+				"subject" => $subject,
+				"body" => [
+					"contentType" => "HTML",
+					"content" => $body
+				],
+				"toRecipients" => [
+					[
+						"emailAddress" => [
+							"address" => $toEmail
+						]
+					]
+				],
+				"attachments" => [
+					[
+						"@odata.type" => "#microsoft.graph.fileAttachment",
+						"name" => "invite.ics",
+						"contentBytes" => base64_encode($ics)
+					]
+				]
+			],
+			"saveToSentItems" => true
+		];
+
+		return $this->client
+			->createRequest("POST", "/users/{$this->sender}/sendMail")
+			->attachBody($message)
+			->execute();
+	}
+	
+	
 }
