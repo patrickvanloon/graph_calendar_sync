@@ -1,0 +1,26 @@
+.gcs-calendar-wrapper {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.gcs-calendar-header {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#gcs-calendar {
+    flex: 2;
+    min-width: 600px;
+}
+
+.gcs-meeting-form {
+    flex: 1;
+    min-width: 300px;
+}
+
+.gcs-meeting-form input,
+.gcs-meeting-form textarea {
+    width: 100%;
+    margin-bottom: 8px;
+}
