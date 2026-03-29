@@ -1,6 +1,11 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+if (!current_user_can('edit_calendar_events')) {
+    return new WP_REST_Response(['error' => 'Not authorized'], 403);
+}
+
+
 class GCS_Calendar_REST {
 
     public function __construct() {
