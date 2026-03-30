@@ -15,8 +15,6 @@ define('GCS_PLUGIN_URL', plugin_dir_url(__FILE__));
 require_once GCS_PLUGIN_DIR . 'includes/class-gcs-graph-client.php';
 require_once GCS_PLUGIN_DIR . 'includes/class-gcs-calendar-renderer.php';
 require_once GCS_PLUGIN_DIR . 'includes/class-gcs-calendar-rest.php';
-require_once plugin_dir_path(__FILE__) . 'includes/class-gcs-ics-generator.php';
-
 
 class GCS_Plugin {
 

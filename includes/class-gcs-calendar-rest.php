@@ -1,7 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-
 class GCS_Calendar_REST {
 
     public function __construct() {
@@ -121,24 +120,7 @@ class GCS_Calendar_REST {
             ]
         ];
 
-       	// Anonymous users → send invite only
-		if (!is_user_logged_in()) {
-			return $this->graph_client->send_meeting_invite(
-				$email, $subject, $body, $start, $end
-			);
-		}
-
-		// Admins → full event creation
-		if (current_user_can('manage_options')) {
-			return $this->graph_client->create_event($data);
-		}
-
-		// Logged-in non-admins → invite only
-		return $this->graph_client->send_meeting_invite(
-			$email, $subject, $body, $start, $end
-		);
-		
-		
+        $res = $client->create_event($event, $user);
         if (is_wp_error($res)) return $res;
 
         // Send confirmation email via Graph (option C)
