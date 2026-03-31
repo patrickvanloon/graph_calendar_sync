@@ -89,22 +89,26 @@ class GCS_Plugin {
     }
 
     public function enqueue_assets() {
-        wp_enqueue_style(
-            'fullcalendar',
-            'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css',
-            [],
-            '6.1.10'
-        );
+        // FullCalendar scripts
+		wp_enqueue_script(
+			'fullcalendar',
+			'https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js',
+			[],
+			'6.1.20',
+			true
+		);
 
-        wp_enqueue_script(
-            'fullcalendar',
-            'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js',
-            [],
-            '6.1.10',
-            true
-        );
+		// FullCalendar styles
+		
+		$base = plugin_dir_url(__FILE__) . 'assets/fullcalendar/css/';
+		
+		wp_enqueue_style('fc-core',      $base . 'core.css', [], '6.1.20');
+		wp_enqueue_style('fc-daygrid',   $base . 'daygrid.css', [], '6.1.20');
+		wp_enqueue_style('fc-timegrid',  $base . 'timegrid.css', [], '6.1.20');
+		wp_enqueue_style('fc-list',      $base . 'list.css', [], '6.1.20');
+		);
 
-        wp_enqueue_script(
+		wp_enqueue_script(
             'gcs-calendar',
             GCS_PLUGIN_URL . 'assets/js/calendar.js',
             ['fullcalendar', 'jquery'],
