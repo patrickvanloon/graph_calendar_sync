@@ -1,9 +1,45 @@
 jQuery(function($) {
 
     let currentCalendarUser = null;
+	
+	function combineDateTime(dateField, timeField) {
+    const date = document.getElementById(dateField).value;
+    const time = document.getElementById(timeField).value;
+
+    if (!date || !time) {
+        return null; // invalid
+    }
+
+    return `${date}T${time}`;
+    }	
+	
+	document.getElementById('gcs-send-request').addEventListener('click', function () {
+
+    const startDateTime = combineDateTime('gcs-start-date', 'gcs-start-time');
+    const endDateTime   = combineDateTime('gcs-end-date', 'gcs-end-time');
+
+    if (!startDateTime || !endDateTime) {
+        alert("Please fill both date and time for start and end.");
+        return;
+    }
+
+    // Populate the hidden datetime-local fields
+    document.getElementById('gcs-start').value = startDateTime;
+    document.getElementById('gcs-end').value   = endDateTime;
+
+    // Now you can send the request using gcs-start and gcs-end
+    const payload = {
+        name: document.getElementById('gcs-name').value,
+        email: document.getElementById('gcs-email').value,
+        start: document.getElementById('gcs-start').value,
+        end: document.getElementById('gcs-end').value,
+        description: document.getElementById('gcs-description').value
+    };
+
+    console.log("Sending payload:", payload);
 
     function isoLocal(dt) {
-        return new Date(dt).toISOString();
+    return new Date(dt).toISOString();
     }
 
     function loadCalendars(callback) {
@@ -64,8 +100,8 @@ jQuery(function($) {
         ],
 
         select: function(info) {
-            $('#gcs-start').val(info.startStr.substring(0, 16));
-            $('#gcs-end').val(info.endStr.substring(0, 16));
+            $('#gcs_start').val(info.startStr.substring(0, 16));
+            $('#gcs_end').val(info.endStr.substring(0, 16));
         },
 
         eventDrop: function(info) {
@@ -95,8 +131,8 @@ jQuery(function($) {
         const payload = {
             name: $('#gcs-name').val(),
             email: $('#gcs-email').val(),
-            start: isoLocal($('#gcs-start').val()),
-            end: isoLocal($('#gcs-end').val()),
+            start: isoLocal($('#gcs_start').val()),
+            end: isoLocal($('#gcs_end').val()),
             description: $('#gcs-description').val(),
             calendarUser: currentCalendarUser
         };
