@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Graph Calendar Sync
  * Description: Sync Outlook/Exchange Online calendars via Microsoft Graph with FullCalendar frontend and role-based editing.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Author: Patrick van Loon
  * Text Domain: graph-calendar-sync
  */
