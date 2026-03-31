@@ -13,6 +13,10 @@ jQuery(function($) {
     return `${date}T${time}`;
     }	
 	
+	function isoLocal(dt) {
+    return new Date(dt).toISOString();
+    }
+	
 	document.getElementById('gcs-send-request').addEventListener('click', function () {
 
     const startDateTime = combineDateTime('gcs-start-date', 'gcs-start-time');
@@ -26,6 +30,13 @@ jQuery(function($) {
     // Populate the hidden datetime-local fields
     document.getElementById('gcs-start').value = startDateTime;
     document.getElementById('gcs-end').value   = endDateTime;
+	
+	 // Now safe to call isoLocal()
+    const startIso = isoLocal(new Date(startDateTime));
+    const endIso   = isoLocal(new Date(endDateTime));
+
+    console.log("Start ISO:", startIso);
+    console.log("End ISO:", endIso);
 
     // Now you can send the request using gcs-start and gcs-end
     const payload = {
@@ -37,10 +48,7 @@ jQuery(function($) {
     };
 
     console.log("Sending payload:", payload);
-
-    function isoLocal(dt) {
-    return new Date(dt).toISOString();
-    }
+   
 
     function loadCalendars(callback) {
         $.ajax({
@@ -131,8 +139,8 @@ jQuery(function($) {
         const payload = {
             name: $('#gcs-name').val(),
             email: $('#gcs-email').val(),
-            start: isoLocal($('#gcs_start').val()),
-            end: isoLocal($('#gcs_end').val()),
+            start: $('#startIso').val(),
+            end: $('#endIso').val(),
             description: $('#gcs-description').val(),
             calendarUser: currentCalendarUser
         };
