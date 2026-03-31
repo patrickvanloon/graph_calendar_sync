@@ -106,7 +106,6 @@ class GCS_Plugin {
 		//wp_enqueue_style('fc-daygrid',   $base . 'daygrid.css', [], '6.1.20');
 		//wp_enqueue_style('fc-timegrid',  $base . 'timegrid.css', [], '6.1.20');
 		//wp_enqueue_style('fc-list',      $base . 'list.css', [], '6.1.20');
-		);
 
 		wp_enqueue_script(
             'gcs-calendar',
