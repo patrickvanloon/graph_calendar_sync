@@ -102,10 +102,10 @@ class GCS_Plugin {
 		
 		$base = plugin_dir_url(__FILE__) . 'assets/fullcalendar/css/';
 		
-		wp_enqueue_style('fc-core',      $base . 'core.css', [], '6.1.20');
-		wp_enqueue_style('fc-daygrid',   $base . 'daygrid.css', [], '6.1.20');
-		wp_enqueue_style('fc-timegrid',  $base . 'timegrid.css', [], '6.1.20');
-		wp_enqueue_style('fc-list',      $base . 'list.css', [], '6.1.20');
+		wp_enqueue_style('fullcalendar',      $base . 'core.css', [], '6.1.20');
+		//wp_enqueue_style('fc-daygrid',   $base . 'daygrid.css', [], '6.1.20');
+		//wp_enqueue_style('fc-timegrid',  $base . 'timegrid.css', [], '6.1.20');
+		//wp_enqueue_style('fc-list',      $base . 'list.css', [], '6.1.20');
 		);
 
 		wp_enqueue_script(
